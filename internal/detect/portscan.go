@@ -1,7 +1,6 @@
 package detect
 
 import (
-	"log"
 	"net/netip"
 	"sync"
 	"time"
@@ -37,10 +36,11 @@ func (sd *ScanDetector) DetectPortscan(ev types.Event) {
 		var attempt Attempt = Attempt{TS: ev.TS, Port: ev.DstPort}
 		sd.mu.Lock()
 		sd.connectionMap[ev.SrcIP] = append(sd.connectionMap[ev.SrcIP], attempt)
-		sd.mu.Unlock()
 		if len(sd.connectionMap[ev.SrcIP]) > 50 {
-			log.Printf("Portscan detected from %s\n at %s", ev.SrcIP, ev.TS.String())
+			SendAlert(ev.TS, ev.SrcIP, "portscan")
+			sd.connectionMap[ev.SrcIP] = []Attempt{} // reset attempts slice
 		}
+		sd.mu.Unlock()
 	}
 }
 
