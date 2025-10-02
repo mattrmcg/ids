@@ -35,10 +35,14 @@ func main() {
 	}()
 
 	logging := flag.Bool("l", false, "Enable verbose logging")
-
+	device := flag.String("d", "", "Network device to listen on")
 	flag.Parse()
 
-	handle, err := capture.OpenLiveHandle("en0", capture.Options{Immediate: true, IncomingTrafficOnly: true})
+	if *device == "" {
+		log.Fatal("No device specified")
+	}
+
+	handle, err := capture.OpenLiveHandle(*device, capture.Options{Immediate: true, IncomingTrafficOnly: true})
 	if err != nil {
 		log.Fatal(err)
 	}
