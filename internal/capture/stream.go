@@ -19,7 +19,7 @@ func Stream(ctx context.Context, handle *pcap.Handle) (<-chan types.Event, error
 
 	pktCh := ps.Packets()
 
-	out := make(chan types.Event, 256) // buffer for backpressure
+	out := make(chan types.Event, 4096) // buffer for backpressure
 	go func() {
 		defer close(out)
 
