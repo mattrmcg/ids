@@ -1,4 +1,4 @@
-# Portscan Detection
+### Introduction
 So far, this project supports portscan detection. More will be added in the future.
 
 Run `go build -o ids cmd/main.go` to build the executeable
