@@ -1,5 +1,5 @@
 ### Introduction
-So far, this project supports portscan detection. More will be added in the future.
+This is a concurrent portscan detection service built on top of libpcap. It operates in userspace and processes incoming packets concurrently. More detection features to come...
 
 Run `go build -o ids cmd/main.go` to build the executeable
 
@@ -14,4 +14,4 @@ You can test that it's working by running an nmap scan against the host
 On your host machine, you should receive a json-formatted alert for the port scan
 <img width="1809" height="573" alt="image" src="https://github.com/user-attachments/assets/e4da739d-2006-4917-9659-1e6b04dcb316" />
 
-The program is built on top of libpcap and processes incoming packets concurrently. Packets get dropped sometimes due to libpcap's limitations, but any portscan with more than 60 or so scans in a 30 second window should get detected
+Small note: Libpcap will drop some packets on server with high ingress throughput, likely due to the limitations of packet processing in userspace. However, any portscan with more than 60 or so scans in a 30 second window should get reliably detected.
