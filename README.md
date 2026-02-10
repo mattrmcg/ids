@@ -1,5 +1,5 @@
 ### Introduction
-This is a concurrent portscan detection service built on top of libpcap. It operates in userspace and processes incoming packets concurrently. More detection features to come...
+This is a concurrent portscan detection service built on top of libpcap. It operates in userspace and processes incoming packets concurrently. I'm in the process of building out more detection features.
 
 Run `go build -o ids cmd/main.go` to build the executeable
 
